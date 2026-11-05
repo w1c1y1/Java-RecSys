@@ -1,1 +1,1 @@
-# RecSys-project
+# Java RecSys Project
