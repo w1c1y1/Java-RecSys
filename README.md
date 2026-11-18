@@ -1,32 +1,83 @@
-# Java RecSys Project
-
 ```mermaid
 classDiagram
-    class UserBaserCF
-    class Parser {
-        +parseReviewData()
-        +parseMovieData()
-        +parseTagData()
+    class Recommendation {
+        int movieId
+        float rating
     }
-    class SVDAlg
-    class Storage
-    class TwoTowerModel["TwoTower Model"]
+
+    class Movie {
+        +int movieId
+        +String title
+        +Set~String~ genres
+    }
+
+    class Rating {
+        +int userId
+        +int movieId
+        +double value
+    }
+
+    class Dataset {
+        List<Rating> train
+        List<Rating> test
+    }
+
     class Recommender {
         <<Interface>>
+        +recommend(userId: int, k: int) List~Recommendation~
     }
-    class Evaluation
-    class Service
-    class Interface
+    
+    class RatingRepository {
+        <<Interface>>
+        +findByUser(userId: int) List~Rating~
+        +findByItem(movieId: int) List~Rating~
+        +findAll() List~Rating~
+    }
 
-    UserBaserCF --> Storage
-    UserBaserCF --> Recommender
-    Parser --> Storage
-    SVDAlg --> Recommender
-    SVDAlg --> Storage
-    TwoTowerModel --> Recommender
-    TwoTowerModel --> Storage
-    Recommender --> Service
-    Evaluation --> Recommender
-    Service --> Storage
-    Service --> Interface
+    class UserBasedCF {
+        +recommend(userId: int, k: int) List~Recommendation~
+    }
+    
+    class SVDRecommender {
+        +train(ratings: List~Rating~) void
+        +recommend(userId: int, k: int) List~Recommendation~
+    }
+    
+    class TwoTowerRecommender {
+        +recommend(userId: int, k: int) List~Recommendation~
+    }
+
+    class Parser {
+        +parseRatings(path: Path) List~Rating~
+        +parseMovies(path: Path) List~Movie~
+    }
+
+    class Evaluation {
+        +evaluate(rec: Recommender, dataset: Dataset, k: int) EvaluationResult
+    }
+
+    class Service {
+        +getRecommendations(userId: int, k: int, type: String) List~Recommendation~
+    }
+
+    
+    UserBasedCF ..|> Recommender
+    SVDRecommender ..|> Recommender
+    TwoTowerRecommender ..|> Recommender
+
+    Parser ..> Rating : creates
+    Parser ..> Movie : creates
+    
+    Parser --> RatingRepository : fills
+
+    UserBasedCF ..> RatingRepository : uses
+    SVDRecommender ..> RatingRepository : uses
+    TwoTowerRecommender ..> RatingRepository : uses
+
+    Evaluation ..> Recommender : uses
+
+    Service ..> Recommender : uses
+    Service ..> RatingRepository : uses
+    Evaluation ..> Dataset: uses
+    
 ```
