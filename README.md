@@ -28,7 +28,6 @@ classDiagram
     }
     
     class RatingRepository {
-        <<Interface>>
         +findByUser(userId: int) List~Rating~
         +findByItem(movieId: int) List~Rating~
         +findAll() List~Rating~
