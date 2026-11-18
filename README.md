@@ -79,5 +79,5 @@ classDiagram
     Service ..> Recommender : uses
     Service ..> RatingRepository : uses
     Evaluation ..> Dataset: uses
-    Recommendator ..> Recommendation: returns
+    Recommender ..> Recommendation: returns
 ```
