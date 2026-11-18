@@ -14,7 +14,7 @@ classDiagram
     class Rating {
         +int userId
         +int movieId
-        +double value
+        +float value
     }
 
     class Dataset {
