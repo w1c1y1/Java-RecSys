@@ -28,6 +28,7 @@ classDiagram
     }
     
     class RatingRepository {
+        <<Interface>>
         +findByUser(userId: int) List~Rating~
         +findByItem(movieId: int) List~Rating~
         +findAll() List~Rating~
@@ -60,6 +61,21 @@ classDiagram
     }
 
     
+    style Movie   fill:#E9E5C2,stroke:#6B7B2E,color:#2F3A0F,stroke-width:2px
+    style Rating  fill:#E9E5C2,stroke:#6B7B2E,color:#2F3A0F,stroke-width:2px
+    style Service fill:#E9E5C2,stroke:#6B7B2E,color:#2F3A0F,stroke-width:2px
+    style Parser  fill:#E9E5C2,stroke:#6B7B2E,color:#2F3A0F,stroke-width:2px
+
+    style Recommendation      fill:#F0DADF,stroke:#7B1E3A,color:#3D0A1A,stroke-width:2px
+    style Dataset             fill:#F0DADF,stroke:#7B1E3A,color:#3D0A1A,stroke-width:2px
+    style Recommender         fill:#F0DADF,stroke:#7B1E3A,color:#3D0A1A,stroke-width:2px
+    style RatingRepository    fill:#F0DADF,stroke:#7B1E3A,color:#3D0A1A,stroke-width:2px
+    style UserBasedCF         fill:#F0DADF,stroke:#7B1E3A,color:#3D0A1A,stroke-width:2px
+    style SVDRecommender      fill:#F0DADF,stroke:#7B1E3A,color:#3D0A1A,stroke-width:2px
+    style TwoTowerRecommender fill:#F0DADF,stroke:#7B1E3A,color:#3D0A1A,stroke-width:2px
+    style Evaluation          fill:#F0DADF,stroke:#7B1E3A,color:#3D0A1A,stroke-width:2px
+
+
     UserBasedCF ..|> Recommender
     SVDRecommender ..|> Recommender
     TwoTowerRecommender ..|> Recommender
